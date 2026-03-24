@@ -3,7 +3,7 @@ import React from "react";
 
 import SinglePlayer from "../SinglePlayer/SinglePlayer";
 
-const AvailablePlayers = ({ playerData }) => {
+const AvailablePlayers = ({ playerData, setCoin, coin }) => {
 
   return (
     <div>
@@ -11,7 +11,7 @@ const AvailablePlayers = ({ playerData }) => {
         {playerData.map((player) => {
          
           return (
-            <SinglePlayer key={player.id} player={player}></SinglePlayer>
+            <SinglePlayer key={player.id} player={player} setCoin={setCoin} coin={coin}></SinglePlayer>
           );
         })}
       </div>
