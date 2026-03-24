@@ -6,6 +6,7 @@ const Players = ({ playerPromise,setCoin, coin }) => {
   const playerData = use(playerPromise);
 
   const [switchTab, setSwitchTab] = useState("available");
+  const [selectedPlayers,  setSelectedPlayers] = useState([])
 
   return (
     <div className="container mx-auto my-15">
@@ -22,7 +23,9 @@ const Players = ({ playerPromise,setCoin, coin }) => {
       </div>
 
 
-      {switchTab === 'available' ? <AvailablePlayers playerData={playerData} setCoin={setCoin} coin={coin}></AvailablePlayers> : <SelectedPlayers></SelectedPlayers>}
+      {switchTab === 'available' ? <AvailablePlayers playerData={playerData} setCoin={setCoin} coin={coin} setSelectedPlayers={setSelectedPlayers} selectedPlayers={selectedPlayers}></AvailablePlayers> 
+      :
+       <SelectedPlayers selectedPlayers={selectedPlayers}></SelectedPlayers>}
     </div>
   );
 };
