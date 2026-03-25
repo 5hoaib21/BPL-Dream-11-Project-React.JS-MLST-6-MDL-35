@@ -1,6 +1,8 @@
 import React from "react";
-import { FaRegUser } from "react-icons/fa";
-import { AiFillDelete } from "react-icons/ai";
+
+import { toast } from "react-toastify";
+import { LuTriangleAlert } from "react-icons/lu";
+import SingleSelectedPlayer from "../SingleSelectedPlayer/SingleSelectedPlayer";
 
 const SelectedPlayers = ({ 
   selectedPlayers, 
@@ -15,7 +17,7 @@ const SelectedPlayers = ({
     const filteredPlayers = 
     selectedPlayers.filter(selectedPlayer => selectedPlayer.playerName !== player.playerName);
     // console.log(filteredPlayers,  'from filtered player');
-    alert('player deleted and deposit added your account')
+    toast.warn('player deleted and deposit added your account')
     setSelectedPlayers(filteredPlayers)
     setCoin(coin + player.playerPrice)
   }
@@ -25,31 +27,19 @@ const SelectedPlayers = ({
 
   return (
     <div>
-      {selectedPlayers.map((player) => {
+      {selectedPlayers.length === 0 ? 
+      <div className="mt-15">
+        <div className="h-100 flex flex-col justify-center items-center p-5 m-5 shadow-2xl rounded-2xl border border-gray-300">
+        <h2 className="text-4xl text-gray-400">No players selected yet</h2>
+        <p className="text-gray-400 mt-5 flex justify-center items-center gap-2"><LuTriangleAlert />Go to Available tab to select players</p>
+      </div> 
+      </div>
+      :  selectedPlayers.map((player) => {
         return (
-          <div className=" bg-base-100 shadow-sm flex justify-center items-center p-5 m-5 rounded-2xl border border-gray-300">
-            <figure>
-              <img 
-                className="w-70 h-70 object-contain rounded-2xl"
-                src={player.playerImage}
-                alt={player.playerName}
-              />
-            </figure>
-            <div className="card-body">
-              <h2 className="card-title font-bold text-2xl"><FaRegUser/>{player.playerName}</h2>
-              <p>
-               <span className="font-bold text-lg">Role:</span> {player.playerRole}
-              </p>
-              <p><span className="font-bold text-lg">Rating:</span> ({player.playerRating})</p>
-              <div className="card-actions justify-end">
-              </div>
-            </div>
-                <button
-                onClick={()=> handleDeleteSelectedPlayer(player)} 
-                className="btn btn-ghost text-2xl rounded-full">
-                <AiFillDelete />
-                </button>
-          </div>
+          <SingleSelectedPlayer 
+          key={player.id}
+          player={player} 
+          handleDeleteSelectedPlayer={handleDeleteSelectedPlayer}></SingleSelectedPlayer>
         );
       })}
     </div>
