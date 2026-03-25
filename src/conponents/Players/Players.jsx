@@ -12,20 +12,32 @@ const Players = ({ playerPromise,setCoin, coin }) => {
     <div className="container mx-auto my-15">
       <div className="flex justify-between items-center mb-5">
         {switchTab === 'available' ?  <h2 className="font-bold text-2xl">Available Players</h2> : 
-        <h2 className="font-bold text-2xl">Selected Players (2/12)</h2>}
+        <h2 className="font-bold text-2xl">Selected Players ({selectedPlayers.length} /{playerData.length})</h2>}
 
         <div className="">
           <button onClick={()=> setSwitchTab("available")} className={`btn ${switchTab === 'available' ?  'bg-[#e7fe29]' : ' '} rounded-l-xl rounded-r-none`}>
             Available
           </button>
-          <button onClick={()=> setSwitchTab("selected")} className={`btn ${switchTab === 'selected' ?  'bg-[#e7fe29]' : ' '} rounded-r-xl rounded-l-none`}>Selected (0)</button>
+          <button onClick={()=> setSwitchTab("selected")} className={`btn ${switchTab === 'selected' ?  'bg-[#e7fe29]' : ' '} rounded-r-xl rounded-l-none`}>Selected ({selectedPlayers.length})</button>
         </div>
       </div>
 
 
-      {switchTab === 'available' ? <AvailablePlayers playerData={playerData} setCoin={setCoin} coin={coin} setSelectedPlayers={setSelectedPlayers} selectedPlayers={selectedPlayers}></AvailablePlayers> 
+      {switchTab === 'available' ?
+       <AvailablePlayers
+       playerData={playerData}
+       setCoin={setCoin} 
+       coin={coin} 
+       setSelectedPlayers={setSelectedPlayers} 
+       selectedPlayers={selectedPlayers}>
+       </AvailablePlayers> 
       :
-       <SelectedPlayers selectedPlayers={selectedPlayers}></SelectedPlayers>}
+       <SelectedPlayers 
+       selectedPlayers={selectedPlayers} 
+       setSelectedPlayers={setSelectedPlayers}
+       coin={coin} 
+       setCoin={setCoin} 
+       ></SelectedPlayers>}
     </div>
   );
 };
